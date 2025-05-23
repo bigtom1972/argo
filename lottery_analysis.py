@@ -190,9 +190,9 @@ class LotteryAnalyzer:
         # Logic for guessing numbers would be implemented here        
         for guess_time in range(num_guess):
             
-            # red_balls = self._red_ball_mix_distance_counter()
+            red_balls = self._red_ball_mix_distance_counter()
             # red_balls = self._red_ball_by_distance()
-            red_balls = self._red_ball_rand()
+            # red_balls = self._red_ball_rand()
 
 
             blue_ball = self._blue_ball_by_distance()
