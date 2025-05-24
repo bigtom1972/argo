@@ -187,23 +187,43 @@ class LotteryAnalyzer:
         Guess the next lottery numbers based on a simple policy.
         This is a placeholder function and should be replaced with actual logic.
         """
+
+        cnt_loss = 0
+        cnt_l6 = 0
+        cnt_l5 = 0
+        cnt_l4 = 0
+        cnt_l3 = 0
+        cnt_l2 = 0
         # Logic for guessing numbers would be implemented here        
         for guess_time in range(num_guess):
             
-            red_balls = self._red_ball_mix_distance_counter()
+            # red_balls = self._red_ball_mix_distance_counter()
             # red_balls = self._red_ball_by_distance()
-            # red_balls = self._red_ball_rand()
+            red_balls = self._red_ball_rand()
 
 
-            blue_ball = self._blue_ball_by_distance()
+            # blue_ball = self._blue_ball_by_distance()
             # blue_ball = self._blue_ball_by_counter()
-            # blue_ball = self._blue_ball_rand()
+            blue_ball = self._blue_ball_rand()
             act_red_balls = self.data[self.hist_cnt][1][0:self.red_balls_num]
             act_blue_ball = self.data[self.hist_cnt][1][-1]
             issue = self.data[self.hist_cnt][0]
             
-            result = checkLottery(act_red_balls, act_blue_ball, red_balls, blue_ball, single_cost, bet_times)
             
+
+            result = checkLottery(act_red_balls, act_blue_ball, red_balls, blue_ball, single_cost, bet_times)
+            if result < 0:
+                cnt_loss += 1
+            elif result == ((5-single_cost)*bet_times):
+                cnt_l6 += 1
+            elif result == ((10-single_cost)*bet_times):
+                cnt_l5 += 1
+            elif result == ((200-single_cost)*bet_times):
+                cnt_l4 += 1
+            elif result == ((3000-single_cost)*bet_times):
+                cnt_l3 += 1
+            else:
+                cnt_l2 += 1
             red_correct = len([x for x in act_red_balls if x in red_balls])
 
             base_money = base_money + result
@@ -211,11 +231,11 @@ class LotteryAnalyzer:
                 print(f"Guess time: {guess_time}, Issue： {issue} baseM: {base_money}, result: {result}, red_balls: {red_balls}, blue_ball: {blue_ball}, act_red_balls: {act_red_balls}, act_blue_ball: {act_blue_ball}, ret: {result}, red_correct: {red_correct}")
 
             if base_money <= 0:
-                print(f"base_money is negative, stop, totally round: {guess_time}")
-                exit()
+                # print(f"base_money is negative, stop, totally round: {guess_time}, L6: {cnt_l6}, L5: {cnt_l5}, L4: {cnt_l4}, L3: {cnt_l3}, L2: {cnt_l2}, loss: {cnt_loss}")
+                break
             self.hist_cnt += 1
             self.updateHistStatistics(act_red_balls, act_blue_ball)
-        print(f"Completed guesses, based money is {base_money}, total round: {guess_time}")
+        print(f"Game Completed, totally round:  {guess_time}, L6: {cnt_l6}, L5: {cnt_l5}, L4: {cnt_l4}, L3: {cnt_l3}, L2: {cnt_l2}, loss: {cnt_loss}, base_money: {base_money}")
 
             
 def main():
