@@ -93,7 +93,7 @@ To run a command in the project environment, use uv run. Alternatively the proje
 
 When uv run is invoked, it will create the project environment if it does not exist yet or ensure it is up-to-date if it exists. The project environment can also be explicitly created with uv sync.
 
-Locking is the process of resolving your project's dependencies into a lockfile. Syncing is the process of installing a subset of packages from the lockfile into the project environment.
+Locking is the process of resolving your project's dependencies into a lockfile. Syncing is the process of installing a subset of packages from the lockfile into the project environment..
 
 ```
 uv run --locked ...  #Disable automatic locking 
@@ -111,4 +111,6 @@ uv sync ...  #While the environment is synced automatically, it may also be expl
 ## Take project langmanus as reference on how to design and implement an agent framework and application.
 
 The LangManus project, hosted at https://github.com/Darwin-lfl/langmanus, is an open-source, community-driven AI automation framework designed to integrate large language models (LLMs) with specialized tools for tasks such as web search, web crawling, and Python code execution.
+
+
 
